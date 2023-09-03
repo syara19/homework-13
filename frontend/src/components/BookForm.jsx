@@ -1,4 +1,4 @@
-import { Box, Button, Flex, FormControl, FormLabel, Heading, Image, Input, Stack, VStack, useToast } from '@chakra-ui/react'
+import { Box, Button, Center, Flex, FormControl, FormLabel, Heading, Image, Input, Stack, VStack, useToast } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { createBook, editBook } from '../modules/fetch'
 
@@ -8,6 +8,7 @@ function BookForm({ bookData }) {
 
     async function handleSubmit(event) {
         event.preventDefault();
+
         if (!selectedImage) {
             toast({
                 title: "Error",
@@ -18,6 +19,36 @@ function BookForm({ bookData }) {
             });
         }
         const formData = new FormData(event.target);
+
+        if (bookData) {
+            try {
+                await editBook(
+                    bookData.id,
+                    formData.get("title"),
+                    formData.get("author"),
+                    formData.get("publisher"),
+                    parseInt(formData.get("year")),
+                    parseInt(formData.get("pages"))
+                );
+                toast({
+                    title: "Success",
+                    description: "Book edited successfully",
+                    status: "success",
+                    duration: 5000,
+                    isClosable: true,
+                });
+            } catch (error) {
+                toast({
+                    title: "Error",
+                    description: error.response.data.message || "Something went wrong",
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                });
+            }
+            return;
+        }
+
         try {
             await createBook(formData);
             event.target.reset();
@@ -37,6 +68,7 @@ function BookForm({ bookData }) {
                 duration: 5000,
                 isClosable: true,
             });
+            throw new Error(error)
         }
     }
 
@@ -61,7 +93,10 @@ function BookForm({ bookData }) {
             alignItems="center"
         >
                 <Box minW={{ base: '90%', md: '468px' }}>
-                    <Heading color="blue.700">Create New Book</Heading>
+                    <Center m="2rem">
+                        <Heading color="blue.700">{bookData ? "Edit Book" : "Create Book"}</Heading>
+                    </Center>
+
                     <form onSubmit={handleSubmit}>
                         <VStack spacing={4}>
                             <FormControl>
@@ -117,8 +152,9 @@ function BookForm({ bookData }) {
                                 variant="solid"
                                 colorScheme="teal"
                                 width="full"
+                                mt={5}
                             >
-                                {'Create Book'}
+                                {bookData ? "Save" : "Create Book"}
                             </Button>
                         </VStack>
                     </form>

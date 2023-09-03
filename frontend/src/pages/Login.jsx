@@ -1,4 +1,4 @@
-import { Box,Link, Button, Center, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack, useToast } from "@chakra-ui/react"
+import { Box, Link, Button, Center, FormControl, FormLabel, Input, InputGroup, InputRightElement, VStack, useToast } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { loginUser } from "../modules/fetch"
 import { useNavigate } from "react-router-dom"
@@ -21,11 +21,9 @@ const Login = () => {
             setIsLoggedIn(true)
             navigate("/")
         }
-
     }, [setIsLoggedIn, navigate])
 
     const handleShowPassword = () => setShowPassword(!showPassword)
-
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -61,7 +59,7 @@ const Login = () => {
             h="100vh" top="0"
         >
             <Box w="400px"
-                boxShadow='2xl'
+                boxShadow='dark-lg'
                 rounded="xl"
                 p={6}>
                 <Center fontSize="3xl" fontWeight="bold" mb={5} color="blue.700">Login</Center>

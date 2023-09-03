@@ -16,7 +16,6 @@ async function registerUser(name, email, password) {
 async function loginUser(email, password) {
   try {
     const response = await instance.post("/login", { email, password });
-
     return response.data;
   } catch (error) {
     throw new Error(error);

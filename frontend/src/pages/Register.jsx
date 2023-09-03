@@ -13,10 +13,8 @@ const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleShowPassword = () => setShowPassword(!showPassword)
-
     const handleSubmit = async (e) => {
         e.preventDefault()
-
         if (password !== confirmPassword) {
             return
         }
@@ -43,7 +41,6 @@ const Register = () => {
                 isClosable: true,
             });
             throw new Error
-
         }
     }
 
@@ -57,7 +54,7 @@ const Register = () => {
                 h="100vh" top="0"
             >
                 <Box w="400px"
-                    boxShadow='2xl'
+                    boxShadow='dark-lg'
                     rounded="xl"
                     p={6}>
                     <Center fontSize="3xl" fontWeight="bold" mb={8} color="blue.700">Register</Center>
@@ -129,9 +126,6 @@ const Register = () => {
                                 Have an account? <Text as={Link} to="/login" color="blue.800">Login</Text>
                             </Text>
                         </VStack>
-
-
-
                     </form>
                 </Box >
             </Box >
