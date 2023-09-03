@@ -1,8 +1,10 @@
-import {create} from 'zustand';
+import { create } from "zustand";
 
 const useAuthStore = create((set) => ({
   isLoggedIn: false,
-  setIsLoggedIn: (loggedIn) => set({ isLoggedIn: loggedIn }),
+  setIsLoggedIn: (login) => {
+    set({ isLoggedIn: login });
+  },
 }));
 
 export default useAuthStore;

@@ -1,7 +1,7 @@
-import { Button, Flex, HStack, Link, Text } from "@chakra-ui/react"
+import { Button, Flex, HStack, Text } from "@chakra-ui/react"
 import useAuthStore from "../store/authStore";
-import { useEffect,  } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState, } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { isLoggedIn, setIsLoggedIn } = useAuthStore();
@@ -12,8 +12,10 @@ const Navbar = () => {
     if (token) {
       setIsLoggedIn(true);
     }
+    // setIsLoggedIn(false)
+console.log(isLoggedIn)
 
-  }, [])
+  }, [localStorage.getItem("token")])
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -33,21 +35,21 @@ const Navbar = () => {
       color="white"
     >
       <Link to="/">
-        <Flex align="center" mr={5} >
+        <Flex align="center" mr={5} pcursor="pointer">
           <Text fontSize="xl" fontWeight="bold" >
             My App
           </Text>
         </Flex>
       </Link>
-    
-   <HStack>
-        {isLoggedIn  && (
+
+      <HStack>
+        {isLoggedIn&& (
           <Link to="/newbook">
             <Button colorScheme="blackAlpha">Create New Book</Button>
           </Link>
         )}
         {!isLoggedIn ? (
-          <Button onClick={()=> navigate("login")} colorScheme="blue">
+          <Button onClick={() => navigate("/login")} colorScheme="blue">
             Login
           </Button>
         ) : (
@@ -59,7 +61,7 @@ const Navbar = () => {
           </Button>
         )}
       </HStack>
-      
+
     </Flex>
   )
 }
