@@ -1,4 +1,4 @@
-import { Box, Button, Center, HStack, Heading, Image, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Text } from "@chakra-ui/react"
+import { Box, Button, CloseButton, Center, HStack, Heading, Image, Popover, PopoverArrow, PopoverBody, PopoverCloseButton, PopoverContent, PopoverHeader, PopoverTrigger, Text, Flex } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { deleteBook, getBookDetail } from "../modules/fetch";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -36,16 +36,18 @@ function BookDetails() {
             placeContent="center"
             position="absolute"
             w="100vw"
-            h="100vh" top="0">
+            h="100vh" >
+
             <Box
                 w="500px"
-                boxShadow='dark-lg' 
+                boxShadow='dark-lg'
                 rounded="lg"
                 p={6}
             >
-                <Center mt="3rem">
-                    <Heading fontSize="2xl" fontWeight="bold" color="blackAlpha.700">{book?.title}</Heading>
-                </Center>
+                <Flex justify="space-between" align="center">
+                    <Heading flex="1" fontSize="2xl" fontWeight="bold" color="blackAlpha.700">{book?.title}</Heading>
+                    <CloseButton flex="none" onClick={() => navigate("/")} size="md" />
+                </Flex>
                 <Center mt="2rem" mb="2rem">
                     <Image src={`http://localhost:8000/${book?.image}`} alt="img" />
                 </Center>

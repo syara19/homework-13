@@ -1,10 +1,12 @@
 import { Box, Button, Center, Flex, FormControl, FormLabel, Heading, Image, Input, Stack, VStack, useToast } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { createBook, editBook } from '../modules/fetch'
+import { useNavigate } from 'react-router-dom'
 
 function BookForm({ bookData }) {
     const toast = useToast()
     const [selectedImage, setSelectedImage] = useState(null)
+    const navigate = useNavigate()
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -37,6 +39,7 @@ function BookForm({ bookData }) {
                     duration: 5000,
                     isClosable: true,
                 });
+                navigate("/")
             } catch (error) {
                 toast({
                     title: "Error",
@@ -60,6 +63,7 @@ function BookForm({ bookData }) {
                 isClosable: true,
             });
             setSelectedImage("");
+            navigate("/")
         } catch (error) {
             toast({
                 title: "Error",
@@ -92,7 +96,8 @@ function BookForm({ bookData }) {
             justifyContent="center"
             alignItems="center"
         >
-                <Box minW={{ base: '90%', md: '468px' }}>
+                <Box minW={{ base: '80%', md: '468px' }}
+                    h="70%" my={100}>
                     <Center m="2rem">
                         <Heading color="blue.700">{bookData ? "Edit Book" : "Create Book"}</Heading>
                     </Center>
@@ -130,7 +135,7 @@ function BookForm({ bookData }) {
                                 />
                             </FormControl>
                             {selectedImage && (
-                                <Image w={64} src={selectedImage} alt="Selected Image" />
+                                <Image src={selectedImage} alt="Selected Image" />
                             )}
                             {!bookData?.image && (
                                 <FormControl>
@@ -160,9 +165,7 @@ function BookForm({ bookData }) {
                     </form>
                 </Box>
             </Stack>
-
         </Flex>
-
 
     )
 }

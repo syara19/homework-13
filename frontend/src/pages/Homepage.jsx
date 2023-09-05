@@ -21,7 +21,7 @@ const Homepage = () => {
         <Container maxW="6xl" py={10} >
             <Grid gap={7} templateColumns='repeat(auto-fill, minmax(200px, 1fr))'>
                 {books?.books?.map((book) => (
-                    <GridItem
+                    <GridItem 
                         key={`${book.id} ${book.title}`}
                         style={{ cursor: "pointer" }}
                     >
